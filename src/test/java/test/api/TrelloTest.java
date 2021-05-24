@@ -1,8 +1,10 @@
-import io.restassured.builder.RequestSpecBuilder;
+package test.api;
+
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.junit.jupiter.api.Test;
+import test.api.Authentication;
 
 import static io.restassured.RestAssured.given;
 
@@ -17,7 +19,7 @@ public class TrelloTest {
 
 
     @Test
-    public void testGit(){
+    public void testMeTrello(){
         given().spec(req).log().all().
                 when().get("/members/me/boards").
                 then().spec(response).log().all();

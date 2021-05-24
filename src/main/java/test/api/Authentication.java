@@ -1,3 +1,5 @@
+package test.api;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 
