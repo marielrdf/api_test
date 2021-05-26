@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
@@ -14,6 +15,7 @@ public class Boards {
     public static RequestSpecification req;
     public static ResponseSpecification response;
     private Response res;
+    private Board newBoard;
 
     public Boards(){
         req = Authentication.getTrelloAuthentication();
@@ -23,15 +25,14 @@ public class Boards {
 
     @BeforeEach
     public void postBoards(){
-        res = given().spec(req).body("{\"name\" : \"newBoard_T\"}")
+        newBoard = given().spec(req).body("{\"name\" : \"newBoard_T\"}")
                 .log().all().
-                when().post("/boards").
-                then().spec(response).log().all().extract().response();
+                when().post("/boards").as(Board.class);
     }
 
     @Test
     public void getBoards(){
-        String id = res.path("id");
+        String id = newBoard.getId();
         given().spec(req).body("{\"name\" : \"newBoard_T\"}")
                 .log().all().
                 when().get("/boards/"+id).
@@ -40,7 +41,7 @@ public class Boards {
 
     @AfterEach
     public void deleteBoards(){
-        String id = res.path("id");
+        String id = newBoard.getId();
         given().spec(req)
                 .log().all().
                 when().delete("/boards/"+id).
