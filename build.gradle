@@ -18,6 +18,7 @@ dependencies {
 
     implementation 'io.cucumber:cucumber-java:6.10.4'
     implementation 'io.cucumber:cucumber-junit:6.10.4'
+    compile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '6.10.4'
 
 
 }
