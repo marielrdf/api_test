@@ -9,17 +9,19 @@ public class Hooks {
     Response resBoard;
     Helper helper;
 
-    public Hooks(Helper helper){
+    public Hooks(Helper helper) {
         this.helper = helper;
     }
 
-    @Before
-    public void createBoard(){
-        helper.response = RequestManager.post("/boards" , "{\"name\" : \"newBoard_T\"}");
+    @Before("@createBoard")
+    public void createBoard() {
+        Response res = RequestManager.post("/boards", "{\"name\" : \"newBoard_T\"}");
+        helper.mapa.put("brd", res);
     }
 
-    @After
+    @After("@createBoard")
     public void deleteBoard() {
-        RequestManager.delete("/boards/"+helper.response.path("id"));
+        Response response = (Response) (helper.mapa.get("brd"));
+        RequestManager.delete("/boards/" + response.path("id"));
     }
 }
