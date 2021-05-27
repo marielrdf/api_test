@@ -19,8 +19,7 @@ public class StepDefinition {
 
     @Given("I set endpoint {string}")
     public void iSetEndpoint(String endPoint) {
-        System.out.println(helper.holam);
-        this.url = endPoint;
+        this.url = Utils.buildEndpoind(helper, endPoint);
     }
 
     @When("I send {string} request")
