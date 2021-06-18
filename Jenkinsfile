@@ -12,7 +12,7 @@ pipeline {
     }
     stage("test") {
       steps {
-        bat 'echo test'
+        bat 'gradle cucumber'
       }
     }
     stage("deploy") {
