@@ -1,7 +1,11 @@
 pipeline {
   agent any
+  tools { 
+    gradle "gradle"
+  }
+
   stages {
-    stage("build") {
+    stage("gradle --version") {
       steps {
         bat 'echo building'
       }
